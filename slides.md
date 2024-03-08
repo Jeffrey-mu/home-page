@@ -91,170 +91,102 @@ Here is another comment.
 -->
 
 ---
-layout: default
+transition: fade-out
 ---
 
-# Table of contents
 
-```html
-<Toc minDepth="1" maxDepth="1"></Toc>
-```
+# Tailwindcss
 
-<Toc maxDepth="1"></Toc>
-
----
-transition: slide-up
-level: 2
----
-
-# Navigation
-
-Hover on the bottom-left corner to see the navigation's controls panel, [learn more](https://sli.dev/guide/navigation.html)
-
-## Keyboard Shortcuts
-
-|     |     |
-| --- | --- |
-| <kbd>right</kbd> / <kbd>space</kbd>| next animation or slide |
-| <kbd>left</kbd>  / <kbd>shift</kbd><kbd>space</kbd> | previous animation or slide |
-| <kbd>up</kbd> | previous slide |
-| <kbd>down</kbd> | next slide |
-
-<!-- https://sli.dev/guide/animations.html#click-animations -->
-<img
-  v-click
-  class="absolute -bottom-9 -left-7 w-80 opacity-50"
-  src="https://sli.dev/assets/arrow-bottom-left.svg"
-  alt=""
-/>
-<p v-after class="absolute bottom-23 left-45 opacity-30 transform -rotate-10">Here!</p>
-
----
-layout: image-right
-image: https://cover.sli.dev
----
-
-# Code
-
-Use code snippets and get the highlighting directly, and even types hover![^1]
-
-```ts {all|5|7|7-8|10|all} twoslash
-// TwoSlash enables TypeScript hover information
-// and errors in markdown code blocks
-// More at https://shiki.style/packages/twoslash
-
-import { computed, ref } from 'vue'
-
-const count = ref(0)
-const doubled = computed(() => count.value * 2)
-
-doubled.value = 2
-```
-
-<arrow v-click="[4, 5]" x1="350" y1="310" x2="195" y2="334" color="#953" width="2" arrowSize="1" />
-
-<!-- This allow you to embed external code blocks -->
-<<< @/snippets/external.ts#snippet
-
-<!-- Footer -->
-[^1]: [Learn More](https://sli.dev/guide/syntax.html#line-highlighting)
-
-<!-- Inline style -->
-<style>
-.footnotes-sep {
-  @apply mt-5 opacity-10;
-}
-.footnotes {
-  @apply text-sm opacity-75;
-}
-.footnote-backref {
-  display: none;
-}
-</style>
-
-<!--
-Notes can also sync with clicks
-
-[click] This will be highlighted after the first click
-
-[click] Highlighted with `count = ref(0)`
-
-[click:3] Last click (skip two clicks)
--->
-
----
-level: 2
----
-
-# Shiki Magic Move
-
-(this feature is still experimental)
-
-Powered by [shiki-magic-move](https://shiki-magic-move.netlify.app/), Slidev supports animations across multiple code snippets.
-
-Add multiple code blocks and wrap them with <code>````md magic-move</code> (four backticks) to enable the magic move. For example:
 
 ````md magic-move
-```ts {*|2|*}
+```html
 // step 1
-const author = reactive({
-  name: 'John Doe',
-  books: [
-    'Vue 2 - Advanced Guide',
-    'Vue 3 - Basic Guide',
-    'Vue 4 - The Mystery'
-  ]
-})
+<div>
+ <img src="http://xx.com">
+ <h2>name</h2>
+</div>
+<style>
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  img {
+    width: 40%;
+  }
+  h2 {
+    font-size: 20px;
+    font-weight: bold;
+    color: red;
+  }
+</style>
+
 ```
 
-```ts {*|1-2|3-4|3-4,8}
+```html
 // step 2
-export default {
-  data() {
-    return {
-      author: {
-        name: 'John Doe',
-        books: [
-          'Vue 2 - Advanced Guide',
-          'Vue 3 - Basic Guide',
-          'Vue 4 - The Mystery'
-        ]
-      }
+<div class="flex-col gap-2">
+ <img src="http://xx.com" class="w-2/5">
+ <h2 class="text-red-900 text-bold">name</h2>
+</div>
+```
+
+```html
+<div class="box">
+  <div class="item">
+    <img src="http://xx.com">
+    <h2>name</h2>
+  </div>
+  *2
+  </div>
+</div>
+<style>
+  .box {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media (min-width: 378px) {
+    .box {
+      grid-template-columns: repeat(1, 1fr);
     }
   }
-}
-```
-
-```ts
-// step 3
-export default {
-  data: () => ({
-    author: {
-      name: 'John Doe',
-      books: [
-        'Vue 2 - Advanced Guide',
-        'Vue 3 - Basic Guide',
-        'Vue 4 - The Mystery'
-      ]
+  @media (min-width: 768px) {
+    .box {
+      grid-template-columns: repeat(2, 1fr);
+     }
+  }
+  @media (min-width: 968px) {
+    .box {
+      grid-template-columns: repeat(3, 1fr);
     }
-  })
-}
+  }
+  .box .item {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  img {
+    width: 40%;
+  }
+  h2 {
+    font-size: 20px;
+    font-weight: bold;
+    color: red;
+  }
+</style>
 ```
 
 Non-code blocks are ignored.
 
-```vue
+```html
 <!-- step 4 -->
-<script setup>
-const author = {
-  name: 'John Doe',
-  books: [
-    'Vue 2 - Advanced Guide',
-    'Vue 3 - Basic Guide',
-    'Vue 4 - The Mystery'
-  ]
-}
-</script>
+<div class="grid grid-col-1 md:grid-col-2 xl:grid-col-3">
+  <div class="flex-col gap-2">
+    <img src="http://xx.com" class="w-2/5">
+    <h2 class="text-red-900 text-bold">name</h2>
+  </div>
+  *2
+</div>
 ```
 ````
 
